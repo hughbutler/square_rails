@@ -16,20 +16,24 @@ module SquareRails
 
       # Provide the code in a request to the Obtain Token endpoint
       oauth_request_body = {
-        'client_id' => SQUARE_APP_ID,
-        'client_secret' => SQUARE_APP_SECRET,
         'access_token' => @token
       }
+      # oauth_request_body = {
+      #   'client_id' => SQUARE_APP_ID,
+      #   'client_secret' => SQUARE_APP_SECRET,
+      #   'access_token' => @token
+      # }
 
       Rails.logger.debug '################### SQUARE_RAILS ### Trying to get reponse'
-      Rails.logger.debug "#{SQUARE_CONNECT_HOST}/oauth2/clients/#{@token}/access_token/new"
+      Rails.logger.debug "#{SQUARE_CONNECT_HOST}/oauth2/clients/#{SQUARE_APP_ID}/access-token/new"
+      Rails.logger.debug "#{SQUARE_OAUTH_REQUEST_HEADERS}"
       Rails.logger.debug oauth_request_body
 
-      response = Unirest.post "#{SQUARE_CONNECT_HOST}/oauth2/clients/#{@token}/access_token/new",
+      response = Unirest.post "#{SQUARE_CONNECT_HOST}/oauth2/clients/#{@token}/access-token/new",
                               headers: SQUARE_OAUTH_REQUEST_HEADERS,
                               parameters: oauth_request_body
 
-      Rails.logger.debug response
+      Rails.logger.debug response.inspect
       Rails.logger.debug '#####################'
       # Extract the returned access token from the response body
       if response.body.key?('access_token')
