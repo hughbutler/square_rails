@@ -28,10 +28,10 @@ module SquareRails
 
           # Here, instead of printing the access token, your application server should store it securely
           # and use it in subsequent requests to the Connect API on behalf of the merchant.
-          auth_response =  "Access token received and assigned to session[:square_access_token]. The token is: <br><br>#{response.body['access_token']}"
+          auth_response =  "Access token received. The token is: <br><br>#{response.body['access_token']}"
 
           @token = response.body['access_token']
-          session[:square_access_token] = @token
+          # session[:square_access_token] = @token
 
       # The response from the Obtain Token endpoint did not include an access token. Something went wrong.
       else
